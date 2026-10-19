@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1944 볼로냐 · Bologna occupata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Special+Elite&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eee4cf; --paper-2:#e3d6ba; --paper-3:#cfbe9b;
+  --soot:#1d1916; --soot-2:#3a322b; --muted:#77695a;
+  --terra:#9c3a24; --terra-dk:#6e2616; --ochre:#c58a36; --olive:#5a5b3a; --steel:#3d4a52;
+  --serif:'Noto Serif KR',serif;
+  --disp:'Playfair Display','Noto Serif KR',serif;
+  --type:'Special Elite','Courier New',monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--soot);font-family:var(--serif);font-size:16.5px;line-height:1.85;word-break:keep-all;overflow-wrap:break-word;
+  background-image:radial-gradient(rgba(90,60,30,.08) 1px,transparent 1.2px),radial-gradient(rgba(90,60,30,.05) 1px,transparent 1.2px);
+  background-size:6px 6px,11px 11px;background-position:0 0,2px 4px}
+img{display:block;max-width:100%}
+h1,h2,h3,h4,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--terra);outline-offset:3px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+
+/* 사진 자리 */
+.slot{position:relative;overflow:hidden;background:var(--paper-2)}
+.slot img{width:100%;height:100%;object-fit:cover;filter:sepia(.35) contrast(1.05) saturate(.8)}
+.slot.empty{display:grid;place-items:center;background:
+  repeating-linear-gradient(45deg,rgba(156,58,36,.06) 0 10px,transparent 10px 20px),var(--paper-2);
+  border:2px dashed var(--paper-3)}
+.slot.empty::after{content:attr(data-label);font-family:var(--type);font-size:13px;color:var(--muted);text-align:center;padding:10px 14px;line-height:1.5;white-space:pre-line}
+
+/* 게이트 */
+#gate{position:fixed;inset:0;z-index:100;background:var(--soot);color:var(--paper);display:flex;align-items:center;justify-content:center;padding:20px;transition:opacity .8s}
+#gate.gone{opacity:0;pointer-events:none}
+#gate::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 2px,transparent 2px 4px);pointer-events:none}
+.siren{position:relative;width:min(520px,100%);border:3px solid var(--paper);padding:30px 26px 26px;text-align:center;background:rgba(156,58,36,.12)}
+.siren .alarm{display:inline-block;font-family:var(--type);letter-spacing:.3em;font-size:14px;background:var(--terra);color:#fff3e2;padding:4px 14px;animation:blink 1.4s steps(2) infinite}
+@keyframes blink{50%{opacity:.35}}
+.siren h1{font-family:var(--disp);font-weight:900;font-size:clamp(46px,10vw,78px);line-height:1;margin:18px 0 4px;letter-spacing:.02em}
+.siren h1 i{color:var(--ochre)}
+.siren .sub{font-family:var(--type);font-size:15px;color:#cdbfa6}
+.siren p{margin:16px 0 22px;font-size:15px;color:#d9ccb2}
+.siren button{border:2px solid var(--paper);background:var(--paper);color:var(--soot);font-family:var(--type);font-size:16px;letter-spacing:.12em;padding:12px 26px}
+.siren button:hover{background:var(--ochre);border-color:var(--ochre)}
+.siren small{display:block;margin-top:12px;font-size:12.5px;color:#a89a82}
+
+/* 헤더 */
+header.site{position:sticky;top:0;z-index:40;background:var(--soot);color:var(--paper);border-bottom:4px solid var(--terra)}
+header.site .wrap{display:flex;align-items:center;gap:18px;height:60px}
+.brand{text-decoration:none;display:flex;align-items:baseline;gap:10px;flex-shrink:0}
+.brand b{font-family:var(--disp);font-size:24px;letter-spacing:.02em}
+.brand span{font-family:var(--type);font-size:12px;color:var(--ochre)}
+nav.gnb{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.gnb::-webkit-scrollbar{display:none}
+nav.gnb a{text-decoration:none;white-space:nowrap;padding:6px 12px;font-size:15px;color:#d8cbb2}
+nav.gnb a:hover,nav.gnb a.on{color:#fff;box-shadow:inset 0 -3px 0 var(--ochre)}
+
+/* 히어로 */
+.hero{position:relative;background:var(--soot);color:var(--paper);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:34px;align-items:center;padding-top:56px;padding-bottom:60px}
+.hero .kicker{font-family:var(--type);font-size:14px;letter-spacing:.2em;color:var(--ochre)}
+.hero h1{font-family:var(--disp);font-weight:900;font-size:clamp(40px,6vw,70px);line-height:1.05;margin:12px 0 16px}
+.hero h1 small{display:block;font-family:var(--serif);font-weight:700;font-size:clamp(20px,2.4vw,26px);margin-top:10px;color:#e3d6ba}
+.hero p{color:#d3c6ad;max-width:460px}
+.hero .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.hero .meta span{font-family:var(--type);font-size:13px;border:1px solid rgba(238,228,207,.4);padding:3px 10px}
+.hero .slot{aspect-ratio:4/3;box-shadow:12px 12px 0 var(--terra)}
+.hero .slot.empty{background-color:#2c2621;border-color:#57493c}
+.hero .slot.empty::after{color:#a89a82}
+.portico{height:46px;background:
+  radial-gradient(circle at 50% 100%,transparent 30px,var(--terra) 31px) 0 0/88px 46px;
+  border-top:6px solid var(--terra)}
+
+/* 섹션 */
+section.block{padding:70px 0 20px}
+.sec-h{margin-bottom:28px;display:flex;align-items:flex-end;gap:16px;border-bottom:2px solid var(--soot);padding-bottom:12px}
+.sec-h .no{font-family:var(--disp);font-weight:900;font-size:56px;line-height:.9;color:var(--terra)}
+.sec-h h2{font-family:var(--serif);font-weight:900;font-size:clamp(26px,3vw,34px);line-height:1.2}
+.sec-h p{font-family:var(--type);font-size:13px;color:var(--muted);letter-spacing:.08em}
+.tbd{display:inline-block;font-family:var(--type);font-size:12px;color:var(--terra);border:1.5px solid var(--terra);padding:0 6px;transform:rotate(-2deg);margin-left:6px;vertical-align:middle;line-height:1.6}
+
+/* 개요 */
+.intro{display:grid;grid-template-columns:1.3fr 1fr;gap:30px;align-items:start}
+.memo{background:#f6efdf;border:1px solid var(--paper-3);padding:26px 28px;box-shadow:0 10px 24px rgba(70,45,20,.12);position:relative}
+.memo::before{content:'';position:absolute;top:-10px;left:40px;width:90px;height:22px;background:rgba(197,138,54,.45);transform:rotate(-3deg)}
+.memo p+p{margin-top:12px}
+.memo ul{margin:14px 0 0;padding-left:1.1em}
+.memo li{margin:4px 0}
+.intro .slot{aspect-ratio:4/3;box-shadow:8px 8px 0 var(--steel)}
+
+/* 세력 */
+.forces{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.force{background:#f6efdf;border:1px solid var(--paper-3);display:flex;flex-direction:column}
+.force .slot{aspect-ratio:16/10}
+.force div.t{padding:16px 18px 18px;border-top:5px solid var(--c,var(--terra))}
+.force b{display:block;font-weight:900;font-size:19px;line-height:1.35}
+.force small{display:block;font-family:var(--type);font-size:12px;color:var(--muted);margin:2px 0 8px}
+.force p{font-size:14.5px;color:var(--soot-2);line-height:1.7}
+.force ul{margin:8px 0 0;padding-left:1.1em;font-size:14px;color:var(--muted)}
+.note{margin-top:20px;padding:14px 18px;border-left:4px solid var(--terra);background:rgba(156,58,36,.06);font-size:15px;color:var(--soot-2)}
+
+/* 생활 규칙 */
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.rule{background:#f6efdf;border:1px solid var(--paper-3);padding:22px 24px}
+.rule h3{font-weight:900;font-size:20px;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.rule h3 i{font-style:normal;font-family:var(--type);font-size:12px;background:var(--soot);color:var(--paper);padding:2px 8px}
+.rule p{font-size:15px;color:var(--soot-2)}
+.rule p+p{margin-top:8px}
+
+/* 장소 */
+.places{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.place{background:#f6efdf;border:1px solid var(--paper-3)}
+.place .slot{aspect-ratio:1/1}
+.place div.t{padding:12px 14px 14px}
+.place b{display:block;font-weight:900;font-size:16.5px;line-height:1.4}
+.place p{font-size:14px;color:var(--soot-2);line-height:1.65;margin-top:4px}
+.place .tag{display:inline-block;font-family:var(--type);font-size:11.5px;color:var(--muted);margin-top:6px}
+
+/* 시작설정 */
+.starts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.start{position:relative;background:#f6efdf;border:1px solid var(--paper-3);display:flex;flex-direction:column}
+.start .slot{aspect-ratio:16/9}
+.start .t{padding:18px 20px 20px}
+.start .n{font-family:var(--disp);font-weight:900;font-size:40px;line-height:1;color:var(--terra)}
+.start h3{font-weight:900;font-size:20px;margin:6px 0 2px;line-height:1.35}
+.start .date{font-family:var(--type);font-size:13px;color:var(--muted);margin-bottom:10px}
+.start p{font-size:14.5px;color:var(--soot-2);line-height:1.7}
+.start p+p{margin-top:8px}
+.stamp{position:absolute;top:12px;right:12px;font-family:var(--type);font-size:13px;color:var(--terra);border:2px solid var(--terra);padding:2px 8px;transform:rotate(6deg);background:rgba(246,239,223,.9)}
+.stamp.ok{color:var(--olive);border-color:var(--olive)}
+
+/* 타임라인 */
+.timeline{position:relative;padding-left:30px}
+.timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--soot)}
+.ev{position:relative;margin-bottom:22px}
+.ev::before{content:'';position:absolute;left:-28px;top:7px;width:14px;height:14px;background:var(--paper);border:3px solid var(--terra)}
+.ev.tbd-ev::before{border-color:var(--paper-3);border-style:dashed}
+.ev .d{font-family:var(--type);font-size:14px;color:var(--terra)}
+.ev b{display:block;font-size:18px;font-weight:900}
+.ev p{font-size:15px;color:var(--soot-2)}
+.ev.tbd-ev .d,.ev.tbd-ev b{color:var(--muted)}
+
+/* BGM */
+#bgm-btn{position:fixed;right:16px;bottom:16px;z-index:50;display:none;align-items:center;gap:8px;border:2px solid var(--soot);background:var(--paper);padding:6px 14px 6px 6px;font-family:var(--type);font-size:13px;box-shadow:4px 4px 0 var(--soot)}
+#bgm-btn.on{display:flex}
+#bgm-btn i{font-style:normal;width:26px;height:26px;display:grid;place-items:center;background:var(--terra);color:#fff;font-size:10px}
+
+footer{margin-top:70px;background:var(--soot);color:#a89a82;font-size:14px}
+footer .wrap{padding:26px 20px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+footer b{font-family:var(--disp);color:var(--paper);font-size:20px}
+
+@media(max-width:900px){
+  .hero .wrap{grid-template-columns:1fr;padding-top:36px}
+  .intro{grid-template-columns:1fr}
+  .intro .slot{aspect-ratio:16/10}
+  .forces,.starts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .places{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+  body{font-size:16px}
+  .brand span{display:none}
+  nav.gnb a{padding:6px 8px;font-size:14px}
+  .hero .slot{box-shadow:8px 8px 0 var(--terra)}
+  .sec-h .no{font-size:44px}
+  .forces,.starts,.rules{grid-template-columns:1fr}
+  .places{gap:12px}
+  .memo{padding:22px 18px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- 배경음악: 레포에 bgm.mp3 를 올리면 재생됩니다 -->
+<audio id="bgm" loop preload="none"><source src="bgm.mp3" type="audio/mpeg"></audio>
+
+<div id="gate" role="dialog" aria-modal="true" aria-label="입장">
+  <div class="siren">
+    <span class="alarm">ALLARME AEREO</span>
+    <h1>Bologna <i>1944</i></h1>
+    <div class="sub">13 · V · 1944</div>
+    <p>사이렌이 울린다. 점령된 도시에서 오늘을 버텨야 한다.</p>
+    <button id="enter">방공호로 · ENTRA</button>
+    <small>♪ 소리가 함께 재생됩니다</small>
+  </div>
+</div>
+
+<header class="site"><div class="wrap">
+  <a class="brand" href="#top"><b>Bologna 1944</b><span>BOLOGNA OCCUPATA</span></a>
+  <nav class="gnb" aria-label="목차">
+    <a href="#intro">개요</a>
+    <a href="#forces">세력</a>
+    <a href="#rules">생활</a>
+    <a href="#places">장소</a>
+    <a href="#starts">시작</a>
+    <a href="#timeline">연표</a>
+  </nav>
+</div></header>
+
+<main id="top">
+<section class="hero"><div class="wrap">
+  <div>
+    <span class="kicker">ITALIA · 1944 · BOLOGNA</span>
+    <h1>점령된 볼로냐<small>1944년 이탈리아에서 살아남기</small></h1>
+    <p>공습이 지나간 도시에서 거처와 생계를 붙들고, 서로 다른 사람·기관·세력과 관계를 맺는다. 전쟁과 점령은 배경이 아니라 매일의 제약이다.</p>
+    <div class="meta"><span>시뮬레이션</span><span>주연 18인 · 9:9</span><span>시작 1944.05.13</span></div>
+  </div>
+  <div class="slot" data-src="img/hero.jpg" data-label="사진 자리 · 메인\nimg/hero.jpg"></div>
+</div></section>
+<div class="portico" aria-hidden="true"></div>
+
+<section class="block" id="intro"><div class="wrap">
+  <div class="sec-h"><span class="no">I</span><div><p>IL CENTRO DELL'OPERA</p><h2>작품의 중심</h2></div></div>
+  <div class="intro">
+    <article class="memo">
+      <p>점령된 도시에서 거처와 생계를 유지하면서 서로 다른 사람·기관·세력과 관계를 맺는 캐릭터챗.</p>
+      <p>user는 직업·국적·소속·사상·사적 목표를 정하고 그 안의 한 사람으로 들어간다. 저항운동 참여나 특정 인물과의 연애를 자동으로 강제하지 않는다.</p>
+      <ul>
+        <li>도시 생활과 관계가 중심이며 전쟁·점령·공습은 그 생활에 실제 제약과 변화를 만든다.</li>
+        <li>개인적 호감, 조직의 신뢰, 당국의 의심은 서로 다르다.</li>
+        <li>개인의 도움과 애정이 소속·권한·책임·위험을 즉시 무효화하지 않는다.</li>
+        <li>생활·대화·휴식·유머·연애와 외부 사건의 리듬을 함께 유지한다.</li>
+      </ul>
+    </article>
+    <div class="slot" data-src="img/intro.jpg" data-label="사진 자리 · 도시 풍경\nimg/intro.jpg"></div>
+  </div>
+</div></section>
+
+<section class="block" id="forces"><div class="wrap">
+  <div class="sec-h"><span class="no">II</span><div><p>POTERI · OCCUPAZIONE · FAZIONI</p><h2>정치·점령·세력</h2></div></div>
+  <div class="forces" id="force-list"></div>
+  <p class="note">각 세력의 권한·활동 범위·목표·정보 접근·내부 차이를 구분한다. 저항 측 내부의 입장 차이와 시민의 생계 우선·중립 유지·가족 보호도 존재한다. 점령·박해의 책임과 권력 차이는 지우지 않는다.</p>
+</div></section>
+
+<section class="block" id="rules"><div class="wrap">
+  <div class="sec-h"><span class="no">III</span><div><p>VITA QUOTIDIANA</p><h2>도시 생활의 조건</h2></div></div>
+  <div class="rules">
+    <article class="rule"><h3><i>DOCUMENTI</i>신분·국적·서류</h3>
+      <p>실제 정체, 현재 사용하는 신분, 직업·거주·소속, 소지 서류와 이동 목적이 대우에 작용한다.</p>
+      <p>위조·소개·통행증의 효력은 상황별로 제한된다. 캐릭터는 관찰·대화·서류·조사를 통해 정보를 알고, user의 비밀·사상을 자동으로 알지 않는다.</p></article>
+    <article class="rule"><h3><i>PANE E TETTO</i>생계·주거·거래</h3>
+      <p>공습 피해, 거처 확보, 하숙과 동거, 임시 노동, 식사·배급·거래, 외상·빚·부양, 치료·수리·교통.</p>
+      <p>도움에는 친절·거래·책임·불편·갈등이 함께 생길 수 있다. 물자가 부족하다는 설명보다 그것을 나누거나 감추거나 요구하는 인물의 행동으로 표현한다.</p></article>
+    <article class="rule"><h3><i>POSTO DI BLOCCO</i>통제·이동·정보</h3>
+      <p>검문·통행금지·수색·체포·밀고·수배·연락 지연·검열.</p>
+      <p>도시·외곽·산지 이동에는 경로와 이유가 필요하다. 소문은 전달 경로와 왜곡·지연이 있으며 공식 보도·직접 확인·전언을 구별한다.</p></article>
+    <article class="rule"><h3><i>LINGUA</i>호칭·언어·사상 <span class="tbd">일부 미정</span></h3>
+      <p>계급·직함·계층·공적/사적 상황·친밀도에 따라 호칭과 말투가 달라진다.</p>
+      <p>사상은 배급·명령·은신 요청·밀고·돌봄 등 구체적인 생활 판단으로 드러낸다. 국적·민족을 성격이나 정치 입장의 자동 결정 요인으로 삼지 않는다. 외국어 출력 방식과 세부 호칭은 미정.</p></article>
+  </div>
+</div></section>
+
+<section class="block" id="places"><div class="wrap">
+  <div class="sec-h"><span class="no">IV</span><div><p>LUOGHI</p><h2>공간 구성</h2></div></div>
+  <div class="places" id="place-list"></div>
+  <p class="note">개별 장소는 관리 주체·출입 조건·캐릭터 접점·그곳에서 일어날 문제를 정리한다. 공습·수색·은닉 상황에 따라 같은 장소의 이용 조건이 달라진다.</p>
+</div></section>
+
+<section class="block" id="starts"><div class="wrap">
+  <div class="sec-h"><span class="no">V</span><div><p>INIZIO</p><h2>시작설정</h2></div></div>
+  <div class="starts">
+    <article class="start"><span class="stamp ok">확정</span>
+      <div class="slot" data-src="img/start1.jpg" data-label="사진 자리 · 공습\nimg/start1.jpg"></div>
+      <div class="t"><span class="n">1</span><h3>기본 · 공습</h3><div class="date">1944. 05. 13</div>
+        <p>user의 직업·소속·신분에 맞는 장소와 인물을 배치하고, 공습으로 달라지는 일상을 첫 장면에서 체감하게 한다. 구조·피신·도움 요청 여부는 user가 정한다.</p>
+        <p>첫 장면 이후 거처·치료·식량·일자리·연락 두절·받은 도움 등의 문제가 남아 도시 생활과 관계로 이어진다.</p></div></article>
+    <article class="start"><span class="stamp">제안</span>
+      <div class="slot" data-src="img/start2.jpg" data-label="사진 자리 · 자유설정\nimg/start2.jpg"></div>
+      <div class="t"><span class="n">2</span><h3>자유설정</h3><div class="date">시기·지역 범위 미정</div>
+        <p>허용 시기·지역·신분·관계·시작 장면을 user가 지정한다. 도시민·점령 측·저항 측·외국인 등 다양한 진입이 가능하도록 설계한다.</p>
+        <p>산지 파르티잔·피난·연락·가족 찾기도 자유설정 안에서 활용 가능하다.</p></div></article>
+    <article class="start"><span class="stamp ok">DLC</span>
+      <div class="slot" data-src="img/start3.jpg" data-label="사진 자리 · 감옥 습격\nimg/start3.jpg"></div>
+      <div class="t"><span class="n">3</span><h3>산 조반니 인 몬테 감옥 습격</h3><div class="date">1944. 08. 09 · 밤</div>
+        <p>감옥 습격과 수감자 탈출. 실제 역사 사건을 배경으로 가상 인물과 user의 개인적 경험을 구성한다.</p>
+        <p>습격의 긴장, 감옥 개방과 혼란, 탈출, 은신처, 추적, 이후 관계의 후유증. 구체적인 성공·실패·생존은 미리 단정하지 않는다.</p></div></article>
+  </div>
+</div></section>
+
+<section class="block" id="timeline"><div class="wrap">
+  <div class="sec-h"><span class="no">VI</span><div><p>CRONOLOGIA</p><h2>연표 <span class="tbd">자료 검수 예정</span></h2></div></div>
+  <div class="timeline">
+    <div class="ev"><span class="d">1944. 05. 13</span><b>공습</b><p>본편 시작.</p></div>
+    <div class="ev"><span class="d">1944. 08. 09 · 밤</span><b>산 조반니 인 몬테 감옥 습격</b><p>시작설정 3 · DLC.</p></div>
+    <div class="ev tbd-ev"><span class="d">— · —</span><b>시기별 역사 사건 추가 예정</b><p>세력 분위기·생활 제약과 함께 정리.</p></div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><b>Bologna 1944</b><span>1944년 이탈리아에서 살아남기 · 세계관</span></div></footer>
+<button id="bgm-btn" aria-label="음악 재생/정지"><i id="bgm-ic">❚❚</i>MUSICA</button>
+
+<script>
+(function(){
+var $ = function(id){ return document.getElementById(id); };
+
+// 사진 파일 경로는 이 레포 기준입니다. 같은 이름으로 img 폴더에 올리면 자동으로 표시됩니다.
+var FORCES = [
+  {name:'독일 점령기관·군', it:'Occupazione tedesca', c:'#3d4a52', img:'force-de.jpg'},
+  {name:'이탈리아 파시스트 기관·조직', it:'Apparato fascista', c:'#1d1916', img:'force-fasc.jpg'},
+  {name:'도시 저항조직', it:'Resistenza in città', c:'#9c3a24', img:'force-res.jpg'},
+  {name:'산지 파르티잔', it:'Partigiani in montagna', c:'#5a5b3a', img:'force-part.jpg'},
+  {name:'시민 생활권', it:'Vita civile', c:'#c58a36', img:'force-civ.jpg'},
+  {name:'외국인·연합군 관련 인맥', it:'Stranieri e Alleati', c:'#6b5a7a', img:'force-ally.jpg'}
+];
+var PLACES = [
+  {n:'볼로냐 시내', d:'주거·노동·상업·행정·점령 통제와 본편 인물 접촉.', img:'place-city.jpg'},
+  {n:'하숙집·주거지', d:'식사·동거·은닉·이웃·비밀·사생활.', img:'place-home.jpg'},
+  {n:'병원·진료 공간', d:'치료·부상자·소개·돌봄과 위험.', img:'place-hosp.jpg'},
+  {n:'시장·상점·비공식 거래', d:'물자·소문·빚·거래 관계.', img:'place-market.jpg'},
+  {n:'종교시설·구호 공간', d:'피난·보호·지원과 책임.', img:'place-church.jpg'},
+  {n:'외곽 농가·연락 거점', d:'식량·이동·임시 숙박과 도시·산지 연결.', img:'place-farm.jpg'},
+  {n:'산지 거점', d:'파르티잔 공동생활·보급·연락·주민 관계.', tag:'자유설정·이후 전개', img:'place-mount.jpg'},
+  {n:'감옥·수사기관', d:'수감·심문·이송·통제.', tag:'DLC 접점', img:'place-prison.jpg'}
+];
+
+$('force-list').innerHTML = FORCES.map(function(f){
+  return '<article class="force" style="--c:' + f.c + '"><div class="slot" data-src="img/' + f.img + '" data-label="사진 자리\nimg/' + f.img + '"></div>' +
+    '<div class="t"><b>' + f.name + '</b><small>' + f.it + '</small><p>권한 · 활동 범위 · 목표 · 정보 접근 · 내부 차이 <span class="tbd">작성 예정</span></p></div></article>';
+}).join('');
+$('place-list').innerHTML = PLACES.map(function(p){
+  return '<article class="place"><div class="slot" data-src="img/' + p.img + '" data-label="사진 자리\nimg/' + p.img + '"></div>' +
+    '<div class="t"><b>' + p.n + '</b><p>' + p.d + '</p>' + (p.tag ? '<span class="tag">' + p.tag + '</span>' : '') + '</div></article>';
+}).join('');
+
+// 사진 자리: 파일이 있으면 보여주고, 없으면 점선 자리로 남김
+document.querySelectorAll('.slot').forEach(function(s){
+  var im = new Image();
+  im.alt = '';
+  im.onload = function(){ s.classList.remove('empty'); s.appendChild(im); };
+  im.onerror = function(){ s.classList.add('empty'); };
+  s.classList.add('empty');
+  im.src = s.dataset.src;
+});
+
+// 목차
+var links = document.querySelectorAll('nav.gnb a');
+var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting) links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id); }); }); }, {rootMargin:'-45% 0px -50% 0px'});
+['intro','forces','rules','places','starts','timeline'].forEach(function(id){ io.observe($(id)); });
+
+// 입장·BGM
+var bgm = $('bgm'), bb = $('bgm-btn');
+function ic(){ $('bgm-ic').textContent = bgm.paused ? '▶' : '❚❚'; }
+bgm.addEventListener('error', function(){ bb.classList.remove('on'); }, true);
+$('enter').addEventListener('click', function(){
+  $('gate').classList.add('gone');
+  setTimeout(function(){ $('gate').style.display = 'none'; }, 850);
+  bgm.volume = 0.45; bb.classList.add('on');
+  var p = bgm.play(); if (p) p.then(ic).catch(ic);
+});
+bb.addEventListener('click', function(){ if (bgm.paused) bgm.play().then(ic).catch(ic); else { bgm.pause(); ic(); } });
+})();
+</script>
+</body>
+</html>
